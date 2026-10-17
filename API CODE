@@ -1,0 +1,327 @@
+# API Reference
+
+**Base URL:** `https://habitual-87c3185c.base44.app/api`
+
+## Setup
+
+```bash
+npm install @base44/sdk
+```
+
+```javascript
+import { createClient } from '@base44/sdk';
+
+const base44 = createClient({
+  appId: "69c65e50c7f20c5387c3185c",
+  headers: {
+    "Authorization": "Bearer YOUR_PERSONAL_ACCESS_TOKEN"
+  }
+});
+```
+
+## Habit
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `title` | string | Yes |  |
+| `description` | string |  |  |
+| `category` | `health`, `fitness`, `mindfulness`, `productivity`, `learning`, `social`, `other` | Yes |  |
+| `frequency` | `daily`, `weekdays`, `weekends`, `custom` | Yes |  |
+| `custom_days` | array |  |  |
+| `icon` | string |  |  |
+| `color` | string |  |  |
+| `target_per_day` | number |  |  |
+| `is_active` | boolean |  |  |
+| `sort_order` | number |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/Habit`
+List Habit records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.Habit.list();
+```
+
+### `POST /entities/Habit`
+Create a Habit record
+
+```javascript
+const record = await base44.entities.Habit.create({
+  // your data
+});
+```
+
+### `DELETE /entities/Habit`
+Delete multiple Habit records
+
+```javascript
+await base44.entities.Habit.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  title: "Example title"
+});
+```
+
+### `POST /entities/Habit/bulk`
+Bulk create Habit records
+
+```javascript
+const records = await base44.entities.Habit.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/Habit/bulk`
+Bulk update Habit records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/Habit/update-many`
+Update many Habit records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/Habit/{Habit_id}`
+Get a Habit record by ID
+
+**Parameters:**
+- `Habit_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.Habit.get(recordId);
+```
+
+### `PUT /entities/Habit/{Habit_id}`
+Update a Habit record
+
+**Parameters:**
+- `Habit_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.Habit.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/Habit/{Habit_id}`
+Delete a Habit record
+
+**Parameters:**
+- `Habit_id` (path): Record ID
+
+```javascript
+await base44.entities.Habit.delete(recordId);
+```
+
+### `PUT /entities/Habit/{Habit_id}/restore`
+Restore a deleted Habit record
+
+**Parameters:**
+- `Habit_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.Habit.restore(recordId);
+```
+
+## HabitLog
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `habit_id` | string | Yes |  |
+| `date` | string | Yes |  |
+| `completed` | boolean |  |  |
+| `count` | number |  |  |
+| `note` | string |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/HabitLog`
+List HabitLog records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.HabitLog.list();
+```
+
+### `POST /entities/HabitLog`
+Create a HabitLog record
+
+```javascript
+const record = await base44.entities.HabitLog.create({
+  // your data
+});
+```
+
+### `DELETE /entities/HabitLog`
+Delete multiple HabitLog records
+
+```javascript
+await base44.entities.HabitLog.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  habit_id: "Example habit_id"
+});
+```
+
+### `POST /entities/HabitLog/bulk`
+Bulk create HabitLog records
+
+```javascript
+const records = await base44.entities.HabitLog.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/HabitLog/bulk`
+Bulk update HabitLog records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/HabitLog/update-many`
+Update many HabitLog records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/HabitLog/{HabitLog_id}`
+Get a HabitLog record by ID
+
+**Parameters:**
+- `HabitLog_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.HabitLog.get(recordId);
+```
+
+### `PUT /entities/HabitLog/{HabitLog_id}`
+Update a HabitLog record
+
+**Parameters:**
+- `HabitLog_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.HabitLog.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/HabitLog/{HabitLog_id}`
+Delete a HabitLog record
+
+**Parameters:**
+- `HabitLog_id` (path): Record ID
+
+```javascript
+await base44.entities.HabitLog.delete(recordId);
+```
+
+### `PUT /entities/HabitLog/{HabitLog_id}/restore`
+Restore a deleted HabitLog record
+
+**Parameters:**
+- `HabitLog_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.HabitLog.restore(recordId);
+```
+
+## User
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `email` | string | Yes | The email of the user |
+| `full_name` | string | Yes | The full name of the user |
+| `role` | `admin`, `user` | Yes | The role of the user in the app |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/User`
+List User records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.User.list();
+```
+
+### `POST /entities/User`
+Create a User record
+
+```javascript
+const record = await base44.entities.User.create({
+  // your data
+});
+```
+
+### `GET /entities/User/{User_id}`
+Get a User record by ID
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.User.get(recordId);
+```
+
+### `PUT /entities/User/{User_id}`
+Update a User record
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.User.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/User/{User_id}`
+Delete a User record
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+await base44.entities.User.delete(recordId);
+```
