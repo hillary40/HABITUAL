@@ -1,0 +1,16 @@
+## Authentication
+
+```bash
+npm install @base44/sdk
+```
+
+```javascript
+import { createClient } from '@base44/sdk';
+
+const base44 = createClient({
+  appId: "69c65e50c7f20c5387c3185c",
+  headers: {
+    "Authorization": "Bearer YOUR_PERSONAL_ACCESS_TOKEN"
+  }
+});
+```
